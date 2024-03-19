@@ -1,0 +1,30 @@
+[
+  {
+    "email": "ISSAC BEKOE",
+    "credentials": {
+      "accessToken": "Issac's Access Token",
+      "refreshToken": "Issac's newRefreshToken"
+    }
+  },
+  {
+    "email": "Alex@rgt.com",
+    "credentials": {
+      "accessToken": "ALex acess token",
+      "refreshToken": "Alex refreshtoken"
+    }
+  },
+  {
+    "email": "KOJO@gmail.com",
+    "credentials": {
+      "accessToken": "KOJO new access token",
+      "refreshToken": "KOJO new refreshToken"
+    }
+  },
+  {
+    "email": "kofi@gmail.com",
+    "credentials": {
+      "accessToken": "kofi acess token",
+      "refreshToken": "kofi refreshtoken"
+    }
+  }
+]
