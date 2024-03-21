@@ -4,7 +4,8 @@ import path from 'path';
 import studentSchema from './Models/student.model';
 import { Database } from './database/postgres';
 import routes from './routes';
-
+import helmet from "helmet";
+import userSchema from './Models/user.model';
 
 const app = express();
 const PORT = 3001;
@@ -14,6 +15,7 @@ const crud = new TxtCrud(path.join(__dirname, './database/users.txt'));
 
 
 app.use(express.json());
+app.use(helmet()); 
 app.use(routes)
 app.get('/users', (req, res) => {
   const users = crud.getUsers();
@@ -70,6 +72,7 @@ app.delete('/users/:email', (req, res) => {
 // Define the model for the "student" table
 const db = new Database();
 db.defineModel('Students', studentSchema);
+db.defineModel('Users', userSchema);
 // Synchronize the models with the database
 (async () => {
   await db.syncModels();

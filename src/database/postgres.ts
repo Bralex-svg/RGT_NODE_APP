@@ -6,6 +6,10 @@ interface ModelSchema {
 }
 
 class Database {
+  getAllStudents() {
+    throw new Error("Method not implemented.");
+  }
+  
   sequelize: Sequelize;
   models: { [key: string]: ModelCtor<Model<any, any>> };
 
@@ -87,7 +91,7 @@ class Database {
       throw error;
     }
   }
-  async getAllStudents() {
+  async getAllUsers() {
     try {
       const students = await this.models.Students.findAll();
       console.log("All students:", students.map((student) => student.toJSON()));
@@ -99,6 +103,43 @@ class Database {
   }
 
   async getStudentByEmail(email: string) {
+    try {
+      const student = await this.models.Students.findOne({ where: { email } });
+      if (!student) throw new Error("Student not found");
+      console.log("Student found:", student.toJSON());
+      return student;
+    } catch (error) {
+      console.error("Error fetching student by email:", error);
+      throw error;
+    }
+  }
+
+  async updateUser(id: number, data: ModelSchema) {
+    try {
+      const student = await this.models.Students.findByPk(id);
+      if (!student) throw new Error("Student not found");
+      await student.update(data);
+      console.log("Student updated:", student.toJSON());
+      return student;
+    } catch (error) {
+      console.error("Error updating student:", error);
+      throw error;
+    }
+  }
+  
+  async deleteUser(id: number) {
+    try {
+      const student = await this.models.Students.findByPk(id);
+      if (!student) throw new Error("Student not found");
+      await student.destroy();
+      console.log("Student deleted:", student.toJSON());
+      return student;
+    } catch (error) {
+      console.error("Error deleting student:", error);
+      throw error;
+    }
+  }
+  async getUserByEmail(email: string) {
     try {
       const student = await this.models.Students.findOne({ where: { email } });
       if (!student) throw new Error("Student not found");
