@@ -32,8 +32,8 @@ async function createUser(req: Request, res: Response) {
 
 async function getAllUsers(req: Request, res: Response) {
   try {
-    const students = await database.getAllUsers();
-    return res.status(200).json({ students });
+    const users = await database.getAllUsers();
+    return res.status(200).json({ users });
   } catch (error) {
     console.error("Error fetching students:", error);
     return res.status(500).json({ error: "Internal server error" });
