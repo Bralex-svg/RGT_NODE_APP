@@ -1,6 +1,5 @@
 import express from 'express';
-import { TxtCrud } from './services/TxtCRUD.services';
-import path from 'path';
+// import { TxtCrud } from './services/TxtCRUD.services';
 import studentSchema from './Models/student.model';
 import { Database } from './database/postgres';
 import routes from './routes';
@@ -12,7 +11,7 @@ const app = express();
 const PORT = 3001;
 
 
-const crud = new TxtCrud(path.join(__dirname, './database/users.txt'));
+// const crud = new TxtCrud(path.join(__dirname, './database/users.txt'));
 
 
 app.use(express.json());
@@ -21,10 +20,10 @@ app.use(cors());
 app.use(helmet()); 
 app.use(routes)
 
-app.get('/users', (req, res) => {
-  const users = crud.getUsers();
-  res.json(users);
-});
+// app.get('/users', (req, res) => {
+//   const users = crud.getUsers();
+//   res.json(users);
+// });
 
 // app.get('/users/:email', (req, res) => {
 //   const { email } = req.params;

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validateData } from "../services/validation";
 import { database } from "../database/postgres";
 import userSchema from "../Models/user.model";
-
+const bcrypt = require('bcrypt')
 database.defineModel("Users", userSchema);
 
 async function createUser(req: Request, res: Response) {
@@ -15,10 +15,13 @@ async function createUser(req: Request, res: Response) {
     if (!isDataValid) {
       throw new Error("Invalid user data");
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // Call the create method of the Database class to create the user
     const user = await database.create("Users", {
         email,
-        password
+        password: hashedPassword
     }); // Assuming 'Student' is the model name
     // Handle success
     console.log("User created:", user.toJSON());
