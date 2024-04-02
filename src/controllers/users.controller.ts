@@ -3,6 +3,8 @@ import { validateData } from "../services/validation";
 import { database } from "../database/postgres";
 import userSchema from "../Models/user.model";
 const bcrypt = require('bcrypt')
+const argon2 = require('argon2');
+
 database.defineModel("Users", userSchema);
 
 async function createUser(req: Request, res: Response) {
@@ -16,14 +18,12 @@ async function createUser(req: Request, res: Response) {
       throw new Error("Invalid user data");
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await argon2.hash(password);
 
-    // Call the create method of the Database class to create the user
     const user = await database.create("Users", {
         email,
         password: hashedPassword
-    }); // Assuming 'Student' is the model name
-    // Handle success
+    });
     console.log("User created:", user.toJSON());
     return res.status(201).json({ message: "User created successfully", user });
   } catch (error) {
