@@ -101,7 +101,19 @@ class Database {
       throw error;
     }
   }
-
+  
+  async findByKey(modelName: string, key: string, value: any) {
+    try {
+      const model = this.models[modelName];
+      const user = await model.findOne({ where: { [key]: value } });
+      if (!user) throw new Error('User not found');
+      console.log('User found:', user.toJSON());
+      return user;
+    } catch (error) {
+      console.error('Error finding user:', error);
+      throw error;
+    }
+  }
   async getStudentByEmail(email: string) {
     try {
       const student = await this.models.Students.findOne({ where: { email } });
